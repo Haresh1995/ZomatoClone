@@ -20,8 +20,7 @@ class UserManager(BaseUserManager):
         Create and save a User with the given email and password.
         """
         if not phone_no:
-            raise ValueError(("Phone Number is required"))
-        extra_fields['email'] = self.normalize_email(extra_fields['email'])
+            raise ValueError(("Phone Number is required")) 
         user = self.model(phone_no=phone_no, **extra_fields)
         user.set_password(password)
         user.save(using=self.db)
@@ -51,3 +50,6 @@ class User(AbstractUser, BaseModel):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+    def __str__(self):
+        return self.phone_number
