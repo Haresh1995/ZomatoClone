@@ -1,1 +1,3 @@
 projenv/
+*.pyc
+__pycache__/
