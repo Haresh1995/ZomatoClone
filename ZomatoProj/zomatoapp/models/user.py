@@ -44,7 +44,7 @@ class User(AbstractUser, BaseModel):
     )
     phone_no = models.CharField(max_length=10, unique=True)
     email = models.EmailField(unique=True)
-    delivery_address = models.TextField(validators=[MaxLengthValidator(200)])
+    delivery_address = models.TextField(null=True,blank=True,validators=[MaxLengthValidator(200)])
     
     USERNAME_FIELD = "phone_no"
     REQUIRED_FIELDS = []
@@ -52,4 +52,4 @@ class User(AbstractUser, BaseModel):
     objects = UserManager()
 
     def __str__(self):
-        return self.phone_number
+        return self.phone_no
