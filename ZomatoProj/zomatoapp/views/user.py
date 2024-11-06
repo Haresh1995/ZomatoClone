@@ -14,6 +14,7 @@ class UserListView(APIView):
             users_list = User.objects.all()
             serializers = UserSerializer(users_list, many=True)
             return Response(serializers.data, status=status.HTTP_200_OK)
+
         except Exception as e:
             return Response(
                 {"error": "An error occurred while retrieving users."},
@@ -49,6 +50,7 @@ class UserListView(APIView):
                 return_user = UserSerializer(fully_updated_user)
                 return Response(return_user.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         except User.DoesNotExist:
             return Response(
                 {"error": "User not found."}, status=status.HTTP_404_NOT_FOUND
@@ -71,6 +73,7 @@ class UserListView(APIView):
                 return_user = UserSerializer(updated_user)
                 return Response(return_user.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         except User.DoesNotExist:
             return Response(
                 {"error": "User not found."}, status=status.HTTP_404_NOT_FOUND
@@ -92,6 +95,7 @@ class UserListView(APIView):
                 {"message": "User deleted successfully."},
                 status=status.HTTP_204_NO_CONTENT,
             )
+
         except User.DoesNotExist:
             return Response(
                 {"error": "User not found."}, status=status.HTTP_404_NOT_FOUND

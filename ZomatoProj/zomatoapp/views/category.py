@@ -12,6 +12,7 @@ class CategoryView(APIView):
             all_categories = Category.objects.all()
             serializer = CategorySerializer(all_categories, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
+
         except Exception as e:
             return Response(
                 {"error": "An error occurred while retrieving categories."},
@@ -50,7 +51,6 @@ class CategoryView(APIView):
             return Response(
                 {"error": "Category not found."}, status=status.HTTP_404_NOT_FOUND
             )
-
         except ValidationError as e:
             return Response({"error": e.detail}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
@@ -70,6 +70,7 @@ class CategoryView(APIView):
                 return_category = CategorySerializer(updated_category)
                 return Response(return_category.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         except Category.DoesNotExist:
             return Response(
                 {"error": "Category not found."}, status=status.HTTP_404_NOT_FOUND
@@ -90,6 +91,7 @@ class CategoryView(APIView):
                 {"message": "Category deleted successfully."},
                 status=status.HTTP_204_NO_CONTENT,
             )
+
         except Category.DoesNotExist:
             return Response(
                 {"error": "Category not found."}, status=status.HTTP_404_NOT_FOUND
