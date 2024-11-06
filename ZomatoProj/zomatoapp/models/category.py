@@ -3,6 +3,7 @@ import uuid
 from django.db import models
 from .base import BaseModel
 
+
 class Category(BaseModel):
     category_id = models.UUIDField(
         primary_key=True,

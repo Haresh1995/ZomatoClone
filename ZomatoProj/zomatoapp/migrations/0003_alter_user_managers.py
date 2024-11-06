@@ -5,16 +5,15 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('zomatoapp', '0002_alter_user_delivery_address'),
+        ("zomatoapp", "0002_alter_user_delivery_address"),
     ]
 
     operations = [
         migrations.AlterModelManagers(
-            name='user',
+            name="user",
             managers=[
-                ('objects', ZomatoProj.zomatoapp.models.user.CustomUserManager()),
+                ("objects", ZomatoProj.zomatoapp.models.user.CustomUserManager()),
             ],
         ),
     ]

@@ -5,15 +5,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('zomatoapp', '0001_initial'),
+        ("zomatoapp", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='delivery_address',
-            field=models.TextField(blank=True, null=True, validators=[django.core.validators.MaxLengthValidator(200)]),
+            model_name="user",
+            name="delivery_address",
+            field=models.TextField(
+                blank=True,
+                null=True,
+                validators=[django.core.validators.MaxLengthValidator(200)],
+            ),
         ),
     ]

@@ -19,7 +19,7 @@ class CustomUserManager(BaseUserManager):
         Create and save a User with the given phone no and password.
         """
         if not phone_no:
-            raise ValueError('Phone number is required')
+            raise ValueError("Phone number is required")
         print("Phone No: ", phone_no)
 
         user = self.model(phone_no=phone_no, **extra_fields)
@@ -31,10 +31,11 @@ class CustomUserManager(BaseUserManager):
         """
         Create and save a SuperUser with the given phone number and password.
         """
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_active", True)
         return self.create_user(phone_no, password, **extra_fields)
+
 
 class User(AbstractUser, BaseModel):
     username = None
@@ -45,13 +46,14 @@ class User(AbstractUser, BaseModel):
     )
     phone_no = models.CharField(max_length=10, unique=True)
     email = models.EmailField(unique=True)
-    delivery_address = models.TextField(null=True,blank=True,validators=[MaxLengthValidator(200)])
-    
+    delivery_address = models.TextField(
+        null=True, blank=True, validators=[MaxLengthValidator(200)]
+    )
+
     USERNAME_FIELD = "phone_no"
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.first_name + " " + self.last_name  
-    
+        return self.first_name + " " + self.last_name

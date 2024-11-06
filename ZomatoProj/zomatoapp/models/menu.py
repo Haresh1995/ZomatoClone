@@ -4,6 +4,7 @@ from .base import BaseModel
 from .category import Category
 from django.db import models
 
+
 class Menu(BaseModel):
     menu_id = models.UUIDField(
         primary_key=True,

@@ -7,22 +7,22 @@ from .menu import Menu
 from .delivery_person import DeliveryPerson
 from django.db import models
 
-class Orders(BaseModel):
 
+class Orders(BaseModel):
     ORDER_STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('confirmed', 'Confirmed'),
-        ('being_prepared', 'Being Prepared'),
-        ('ready_for_pickup', 'Ready for Pickup'),
-        ('out_for_delivery', 'Out for Delivery'),
-        ('delivered', 'Delivered'),
-        ('cancelled', 'Cancelled'),
-        ('refunded', 'Refunded'),
-        ('failed', 'Failed'),
-        ('completed', 'Completed'),
-        ('on_hold', 'On Hold'),
-        ('scheduled', 'Scheduled'),
-        ('awaiting_payment', 'Awaiting Payment'),
+        ("pending", "Pending"),
+        ("confirmed", "Confirmed"),
+        ("being_prepared", "Being Prepared"),
+        ("ready_for_pickup", "Ready for Pickup"),
+        ("out_for_delivery", "Out for Delivery"),
+        ("delivered", "Delivered"),
+        ("cancelled", "Cancelled"),
+        ("refunded", "Refunded"),
+        ("failed", "Failed"),
+        ("completed", "Completed"),
+        ("on_hold", "On Hold"),
+        ("scheduled", "Scheduled"),
+        ("awaiting_payment", "Awaiting Payment"),
     ]
 
     order_id = models.UUIDField(
@@ -36,4 +36,6 @@ class Orders(BaseModel):
     food_item = models.CharField(max_length=50)
     total_amount = models.FloatField()
     delivery_person_id = models.ForeignKey(DeliveryPerson, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50, choices=ORDER_STATUS_CHOICES, default='pending')
+    status = models.CharField(
+        max_length=50, choices=ORDER_STATUS_CHOICES, default="pending"
+    )

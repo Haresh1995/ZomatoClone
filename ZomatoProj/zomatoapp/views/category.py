@@ -7,7 +7,6 @@ from ..serializers.category import CategorySerializer
 
 
 class CategoryView(APIView):
-
     def get(self, request):
         try:
             all_categories = Category.objects.all()
@@ -16,9 +15,9 @@ class CategoryView(APIView):
         except Exception as e:
             return Response(
                 {"error": "An error occurred while retrieving categories."},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
-    
+
     def post(self, request):
         try:
             serializer = CategorySerializer(data=request.data)
@@ -30,18 +29,15 @@ class CategoryView(APIView):
 
         except ValidationError as e:
             # Handles validation errors from is_valid
-            return Response(
-                {"error": e.detail},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({"error": e.detail}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response(
                 {"error": "An error occurred while creating the category."},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
     def put(self, request, category_id=None):
-        try: 
+        try:
             category_obj = Category.objects.get(category_id=category_id)
             serializer = CategorySerializer(category_obj, data=request.data)
             if serializer.is_valid():
@@ -52,25 +48,23 @@ class CategoryView(APIView):
 
         except Category.DoesNotExist:
             return Response(
-                {"error": "Category not found."},
-                status=status.HTTP_404_NOT_FOUND
+                {"error": "Category not found."}, status=status.HTTP_404_NOT_FOUND
             )
 
         except ValidationError as e:
-            return Response(
-                {"error": e.detail},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({"error": e.detail}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response(
                 {"error": "An error occurred while updating the category."},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
     def patch(self, request, category_id=None):
         try:
             category_obj = Category.objects.get(category_id=category_id)
-            serializer = CategorySerializer(category_obj, data=request.data, partial=True)
+            serializer = CategorySerializer(
+                category_obj, data=request.data, partial=True
+            )
             if serializer.is_valid():
                 updated_category = serializer.save()
                 return_category = CategorySerializer(updated_category)
@@ -78,36 +72,31 @@ class CategoryView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Category.DoesNotExist:
             return Response(
-                {"error": "Category not found."},
-                status=status.HTTP_404_NOT_FOUND
+                {"error": "Category not found."}, status=status.HTTP_404_NOT_FOUND
             )
         except ValidationError as e:
-            return Response(
-                {"error": e.detail},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({"error": e.detail}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response(
                 {"error": "An error occurred while partially updating the category."},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
-    
+
     def delete(self, request, category_id=None):
         try:
             category_obj = Category.objects.get(category_id=category_id)
             category_obj.delete()
             return Response(
                 {"message": "Category deleted successfully."},
-                status=status.HTTP_204_NO_CONTENT
+                status=status.HTTP_204_NO_CONTENT,
             )
         except Category.DoesNotExist:
             return Response(
-                {"error": "Category not found."},
-                status=status.HTTP_404_NOT_FOUND
+                {"error": "Category not found."}, status=status.HTTP_404_NOT_FOUND
             )
         except Exception as e:
             print(f"Error in DELETE request: {e}")
             return Response(
                 {"error": "An error occurred while deleting the category."},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )

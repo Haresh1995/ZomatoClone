@@ -4,6 +4,7 @@ from django.db import models
 
 from .base import BaseModel
 
+
 class DeliveryPerson(BaseModel):
     delivery_person_id = models.UUIDField(
         primary_key=True,

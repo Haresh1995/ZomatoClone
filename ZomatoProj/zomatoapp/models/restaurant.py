@@ -7,6 +7,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from .base import BaseModel
 from .menu import Menu
 
+
 class Restaurant(BaseModel):
     restaurant_id = models.UUIDField(
         primary_key=True,
