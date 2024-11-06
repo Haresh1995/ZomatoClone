@@ -15,3 +15,12 @@ class UserSerializer(serializers.ModelSerializer):
         # Call the custom create_user method
         user = User.objects.create_user(phone_no=phone_no, password=password, **validated_data)
         return user
+
+    def update(self, instance, validated_data):
+        # Check if password is in the validated data, and hash it before updating
+        password = validated_data.get('password', None)
+        if password:
+            validated_data['password'] = make_password(password)
+        
+        # Update the instance with the validated data
+        return super().update(instance, validated_data)
