@@ -85,7 +85,6 @@ DATABASES = {
         'PORT': '3306',  
     }
 }
-AUTH_USER_MODEL = "zomatoapp.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -104,6 +103,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = "zomatoapp.User"
 
 
 # Internationalization
