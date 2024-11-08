@@ -1,8 +1,8 @@
 import uuid
 
 from .base import BaseModel
-from .category import Category
 from django.db import models
+from .restaurant import Restaurant
 
 
 class Menu(BaseModel):
@@ -11,7 +11,8 @@ class Menu(BaseModel):
         default=uuid.uuid4,
         editable=False,
     )
-    food_item = models.CharField(max_length=50)
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
-    price = models.FloatField()
-    quantity = models.IntegerField()
+    restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE)
+    menu_name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.menu_name

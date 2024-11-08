@@ -1,6 +1,15 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Orders, Restaurant, DeliveryPerson, Menu, Rating, Category
+from .models import (
+    User,
+    Orders,
+    Restaurant,
+    DeliveryPerson,
+    Menu,
+    Rating,
+    Category,
+    FoodItem,
+)
 
 
 class UserAdmin(BaseUserAdmin):
@@ -31,9 +40,17 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
+# class CategoryDisplay(admin.ModelAdmin):
+#     list_display = ['category_id','category_name', 'is_veg', 'is_non_veg']
+
+# class MenuDisplay(admin.ModelAdmin):
+#     list_display = ['food_item','category_id','price','quantity']
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Orders)
 admin.site.register(Restaurant)
 admin.site.register(DeliveryPerson)
 admin.site.register(Rating)
 admin.site.register(Category)
+admin.site.register(Menu)
+admin.site.register(FoodItem)

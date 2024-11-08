@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from .base import BaseModel
+from .menu import Menu
 
 
 class Category(BaseModel):
@@ -10,6 +11,17 @@ class Category(BaseModel):
         default=uuid.uuid4,
         editable=False,
     )
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     category_name = models.CharField(max_length=50)
-    is_veg = models.BooleanField(default=False)
-    is_non_veg = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.category_name
+
+
+class FoodItem(BaseModel):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.name
