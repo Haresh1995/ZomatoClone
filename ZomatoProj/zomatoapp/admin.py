@@ -9,6 +9,7 @@ from .models import (
     Rating,
     Category,
     FoodItem,
+    OrderItem,
 )
 
 
@@ -54,3 +55,4 @@ admin.site.register(Rating)
 admin.site.register(Category)
 admin.site.register(Menu)
 admin.site.register(FoodItem)
+admin.site.register(OrderItem)

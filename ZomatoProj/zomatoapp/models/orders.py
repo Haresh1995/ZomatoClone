@@ -4,6 +4,7 @@ from .base import BaseModel
 from .user import User
 from .restaurant import Restaurant
 from .menu import Menu
+from .category import FoodItem
 from .delivery_person import DeliveryPerson
 from django.db import models
 
@@ -39,3 +40,17 @@ class Orders(BaseModel):
     status = models.CharField(
         max_length=50, choices=ORDER_STATUS_CHOICES, default="pending"
     )
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Orders, on_delete=models.CASCADE, related_name="items")
+    food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    price = models.DecimalField(
+        max_digits=10, decimal_places=2
+    )  # Price at the time of order
+
+    def __str__(self):
+        return (
+            f"{self.quantity} x {self.food_item.name} for Order #{self.order.order_id}"
+        )
