@@ -11,7 +11,9 @@ class Menu(BaseModel):
         default=uuid.uuid4,
         editable=False,
     )
-    restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE)
+    restaurant = models.OneToOneField(
+        Restaurant, on_delete=models.CASCADE, related_name="menu"
+    )
     menu_name = models.CharField(max_length=30)
 
     def __str__(self):

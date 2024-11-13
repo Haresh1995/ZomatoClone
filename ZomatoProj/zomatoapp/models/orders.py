@@ -33,8 +33,6 @@ class Orders(BaseModel):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    food_id = models.ForeignKey(Menu, on_delete=models.CASCADE)
-    food_item = models.CharField(max_length=50)
     total_amount = models.FloatField()
     delivery_person_id = models.ForeignKey(DeliveryPerson, on_delete=models.CASCADE)
     status = models.CharField(
@@ -46,11 +44,6 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE, related_name="items")
     food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
-    price = models.DecimalField(
-        max_digits=10, decimal_places=2
-    )  # Price at the time of order
 
     def __str__(self):
-        return (
-            f"{self.quantity} x {self.food_item.name} for Order #{self.order.order_id}"
-        )
+        return f"{self.quantity} x {self.food_item.name} - for Order Id - {self.order.order_id}"
