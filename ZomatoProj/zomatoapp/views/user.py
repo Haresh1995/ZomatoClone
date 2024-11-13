@@ -33,6 +33,7 @@ class UserListView(APIView):
         except ValidationError as e:
             # Handles validation errors from is_valid
             return Response({"error": e.detail}, status=status.HTTP_400_BAD_REQUEST)
+
         except Exception as e:
             # Handle any other unexpected errors
             print(f"Error in POST request: {e}")
@@ -55,10 +56,11 @@ class UserListView(APIView):
             return Response(
                 {"error": "User not found."}, status=status.HTTP_404_NOT_FOUND
             )
+
         except ValidationError as e:
             return Response({"error": e.detail}, status=status.HTTP_400_BAD_REQUEST)
+
         except Exception as e:
-            print(f"Error in PUT request: {e}")
             return Response(
                 {"error": "An error occurred while updating the user."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -78,10 +80,11 @@ class UserListView(APIView):
             return Response(
                 {"error": "User not found."}, status=status.HTTP_404_NOT_FOUND
             )
+
         except ValidationError as e:
             return Response({"error": e.detail}, status=status.HTTP_400_BAD_REQUEST)
+
         except Exception as e:
-            print(f"Error in PATCH request: {e}")
             return Response(
                 {"error": "An error occurred while partially updating the user."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -100,8 +103,8 @@ class UserListView(APIView):
             return Response(
                 {"error": "User not found."}, status=status.HTTP_404_NOT_FOUND
             )
+
         except Exception as e:
-            print(f"Error in DELETE request: {e}")
             return Response(
                 {"error": "An error occurred while deleting the user."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
