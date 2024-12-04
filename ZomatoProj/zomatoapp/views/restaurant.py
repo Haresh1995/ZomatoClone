@@ -2,9 +2,18 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import ValidationError
+from rest_framework.pagination import PageNumberPagination
 
 from ..models import Restaurant
 from ..serializers.restaurant import RestaurantSerializer
+
+from django.db.models import Q
+
+
+class RestaurantPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = "page_size"
+    max_page_size = 100
 
 
 class RestaurantView(APIView):
@@ -24,8 +33,19 @@ class RestaurantView(APIView):
             try:
                 # Fetch all restaurants
                 restaurants = Restaurant.objects.all()
-                serializer = RestaurantSerializer(restaurants, many=True)
-                return Response(serializer.data, status=status.HTTP_200_OK)
+
+                search_query = request.query_params.get("search", None)
+
+                if search_query:
+                    restaurants = restaurants.filter(
+                        Q(restaurant_name__icontains=search_query)
+                        | Q(restaurant_email__icontains=search_query)
+                    )
+
+                paginator = RestaurantPagination()
+                paginated_queryset = paginator.paginate_queryset(restaurants, request)
+                serializer = RestaurantSerializer(paginated_queryset, many=True)
+                return paginator.get_paginated_response(serializer.data)
 
             except Exception as e:
                 return Response(
